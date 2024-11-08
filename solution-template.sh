@@ -34,6 +34,7 @@ create_directory_and_file() {
  * Problem: $problem_url
  * Runtime: ms (%)
  */
+
 EOL
 
     echo "Created $file_path with initial template."
