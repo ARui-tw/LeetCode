@@ -1,7 +1,7 @@
 /**
  * Author: ARui<mail@arui.dev>
  * Problem: https://leetcode.com/problems/adjacent-increasing-subarrays-detection-i
- * Runtime: ms (%)
+ * Runtime: 7ms (100.00%)
  */
 
 class Solution {
