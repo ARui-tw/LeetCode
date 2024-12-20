@@ -43,8 +43,7 @@ public:
                 sta.push(cur);
             }
 
-            // printf("ma: %d, level: %d, counter %d
-", ma, level, counter);
+            // printf("ma: %d, level: %d, counter %d\n", ma, level, counter);
 
             if (ma == counter) {
                 if (level % 2 == 0) {
