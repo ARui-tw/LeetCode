@@ -3,7 +3,8 @@
  * Problem: https://leetcode.com/problems/maximum-number-of-k-divisible-components
  * Runtime: 103 ms (77.85%)
  */
-\nclass Solution {
+
+class Solution {
 public:
     struct node {
         long long val;
@@ -29,10 +30,6 @@ public:
             nodes[e[0]]->child.push_back(nodes[e[1]]);
             nodes[e[1]]->child.push_back(nodes[e[0]]);
         }
-
-        // for (auto n : nodes) {
-        //     printf("val: %d, size: %d\n", n->val, n->child.size());
-        // }
 
         node* root = nodes[0];
 
