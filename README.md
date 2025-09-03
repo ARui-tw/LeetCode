@@ -56,7 +56,7 @@ Each solution follows this structure:
 
 ## 📊 Progress
 
-- **Total Problems Solved**: 140+
+- **Total Problems Solved**: 138+
 - **Primary Language**: C++
 - **Focus Areas**: Algorithms, Data Structures, Dynamic Programming, Graph Theory
 
