@@ -1,56 +1,48 @@
 /**
  * Author: ARui<mail@arui.dev>
  * Problem: https://leetcode.com/problems/maximum-number-of-k-divisible-components
- * Runtime: 103 ms (77.85%)
+ * Runtime: 93 ms (88.26%)
  */
 
 class Solution {
-public:
-    struct node {
-        long long val;
-        vector<node*> child;
+    struct Node {
+        int idx;
+        vector<Node*> nxt;
     };
-
-    long long ans;
-    int K;
-
+public:
     int maxKDivisibleComponents(int n, vector<vector<int>>& edges, vector<int>& values, int k) {
-        vector<node*> nodes;
-        ans = 1;
-        K = k;
-        
+        vector<Node*> nodes(n);
+        vector<bool> seen(n, false);
+        int res = 0;
         for (int i = 0; i < n; i++) {
-            node* tmp = new node();
-
-            tmp->val = values[i];
-            nodes.push_back(tmp);
+            nodes[i] = new Node();
+            nodes[i]->idx = i;
+        }
+        for (auto& edge : edges) {
+            nodes[edge[0]]->nxt.push_back(nodes[edge[1]]);
+            nodes[edge[1]]->nxt.push_back(nodes[edge[0]]);
         }
 
-        for (auto& e : edges) {
-            nodes[e[0]]->child.push_back(nodes[e[1]]);
-            nodes[e[1]]->child.push_back(nodes[e[0]]);
-        }
+        auto dfs = [&](this const auto& self, Node* cur) -> int {
+            seen[cur->idx] = true;
+            long long curVal = values[cur->idx];
+            for (auto& child : cur->nxt) {
+                if (!seen[child->idx]) {
+                    curVal += self(child);
+                    curVal %= k;
+                }
+            }
 
-        node* root = nodes[0];
+            if (curVal % k == 0) {
+                res++;
+                return 0;
+            } else {
+                return curVal;
+            }
+        };
 
-        for (auto c : root->child) {
-            if (c == root) continue;
-            dfs(c, root);
-        }
-        
-        return ans;
-    }
+        dfs(nodes[0]);
 
-    void dfs(node* cur, node* parent) {
-        for (auto c : cur->child) {
-            if (c == parent) continue;
-            dfs(c, cur);
-        }
-
-        if (cur->val % K == 0) {
-            ans++;
-        } else {
-            parent->val += cur->val;
-        }
+        return res == 0 ? 1 : res;
     }
 };
