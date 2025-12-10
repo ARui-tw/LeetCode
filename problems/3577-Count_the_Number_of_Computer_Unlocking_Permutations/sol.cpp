@@ -4,4 +4,18 @@
  * Runtime: 0 ms (100.00%)
  */
 
-3577. Count the Number of Computer Unlocking Permutations
+class Solution {
+public:
+    int countPermutations(vector<int>& complexity) {
+        long long res = 1;
+        const int mod = 1e9 + 7;
+
+        for (int i = 1; i < complexity.size(); i++) {
+            if (complexity[i] <= complexity[0]) return 0;
+            res *= i;
+            res %= mod;
+        }
+
+        return res;
+    }
+};
