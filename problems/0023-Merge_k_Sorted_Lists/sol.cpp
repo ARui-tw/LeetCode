@@ -1,7 +1,7 @@
 /**
  * Author: ARui<mail@arui.dev>
  * Problem: https://leetcode.com/problems/merge-k-sorted-lists
- * Runtime: 2 ms (70.41%)
+ * Runtime: 0 ms (100.00%)
  */
 
 /**
@@ -17,26 +17,25 @@
 class Solution {
 public:
     ListNode* mergeKLists(vector<ListNode*>& lists) {
-        ListNode* cur = new ListNode();
-        ListNode* dummyHead = cur;
-        priority_queue<pair<int, ListNode*>, vector<pair<int, ListNode*>>, greater<pair<int, ListNode*>>> pq;
-        int k = lists.size();
+        priority_queue<ListNode*, vector<ListNode*>, decltype([](const ListNode* lhs, const ListNode* rhs) {
+            return lhs->val > rhs->val;
+        })> pq;
+        ListNode dummy = ListNode();
+        ListNode* cur = &dummy;
 
-        for (int i = 0; i < k; i++) {
-            if (lists[i] != NULL)
-                pq.push({lists[i]->val, lists[i]});
+        for (auto& list : lists) {
+            if (list) pq.push(list);
         }
 
         while (!pq.empty()) {
-            auto [num, node] = pq.top();
+            auto top = pq.top();
             pq.pop();
-            cur->next = node;
-            if (node->next) {
-                pq.push({node->next->val, node->next});
-            }
-            cur = cur->next;
+
+            cur->next = top;
+            cur = top;
+            if (top->next) pq.push(top->next);
         }
 
-        return dummyHead->next;
+        return dummy.next;
     }
 };
